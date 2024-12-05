@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<body>
+
+<style>
+    body {
+margin: 0;
+height: 100vh;
+background: radial-gradient(circle at bottom, #1a0000, #000);
+overflow: hidden;
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.ember {
+position: absolute;
+bottom: 0;
+width: 12px;
+height: 12px;
+background: radial-gradient(circle, rgba(255, 140, 0, 1) 0%, rgba(255, 69, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+border-radius: 50%;
+pointer-events: none;
+animation: rise linear infinite, drift ease-in-out infinite;
+opacity: 0.8;
+}
+@keyframes rise {
+0% {
+transform: translateY(0) scale(0.5);
+opacity: 0.8;
+top: 100%;
+}
+50% {
+opacity: 1;
+}
+100% {
+transform: translateY(-120vh) scale(1.2);
+opacity: 0;
+top: 0;
+}
+}
+@keyframes drift {
+0%, 100% {
+transform: translateX(0);
+}
+50% {
+transform: translateX(10px);
+}
+}
+</style>
+<script>
+    const emberCount = 100;
+function createEmber() {
+const ember = document.createElement('div');
+ember.classList.add('ember');
+ember.style.left = `${Math.random() * 100}vw`;
+const size = Math.random() * 10 + 10;
+ember.style.width = `${size}px`;
+ember.style.height = `${size}px`;
+ember.style.animationDuration = `${Math.random() * 4 + 6}s`;
+ember.style.animationDelay = `${Math.random() * 2}s`;
+document.body.appendChild(ember);
+ember.addEventListener('animationend', () => {
+ember.remove();
+createEmber();
+});
+}
+for (let i = 0; i < emberCount; i++) {
+createEmber();
+}
+</script>
+</body>
+</html>
